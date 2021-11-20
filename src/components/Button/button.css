@@ -1,0 +1,17 @@
+.button{
+    width: 180px;
+    height: 40px;
+
+    border: none;
+    border-radius: var(--var-border-radius);
+    box-shadow: 4px 4px 2px var(--var-azul-escuro);
+
+    color: var(--var-branco);
+
+    background-color: var(--var-azul);
+}
+
+.button:active{
+    box-shadow: 1px 1px 2px var(--var-azul-escuro);
+    transform: translateY(3px);
+}

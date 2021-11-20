@@ -1,0 +1,31 @@
+.header{
+    background-color: var(--var-azul-escuro);
+
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center;
+
+    width: 100%;
+}
+
+.header ul{
+    list-style: none;
+
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+
+    width: 60%;
+}
+
+.header ul li{
+    color: var(--var-branco);
+    font-weight: bold;
+    text-shadow: 2px 2px 0px rgba(0, 0, 0, 0.9);
+
+    margin: 10px 10px;
+}
+
