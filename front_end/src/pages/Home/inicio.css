@@ -1,0 +1,50 @@
+h1 {
+    text-align: center;
+    padding-top: 25px;
+    font-weight: bold;
+}
+
+P {
+    padding-top: 25px;
+}
+
+#content {
+    display: flex;
+    flex-direction: row;
+}
+
+.card-1 {  
+    margin-left: 1%;
+    padding: 30px 30px 30px 30px;
+    width: 90%;
+    border-right: solid black ;
+}
+
+.card-2 {
+    padding: 30px 30px 30px 30px;
+    width: 300px
+}
+
+#rua {
+    max-width: 100%;
+}
+
+footer {
+    background-color: var(--var-azul-escuro);
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 20px;
+}
+
+footer ul li {
+    display: inline-block; 
+    padding: 0 12px;
+    border-right: 2px solid #ffffff;
+    text-decoration: none;
+}
+
+footer ul li:last-child {
+    border-right: none;
+}
+
