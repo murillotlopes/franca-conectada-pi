@@ -1,0 +1,62 @@
+const { update } = require('../models/usuariosModels');
+const Usuarios = require('../models/usuariosModels');
+
+module.exports = {
+
+    async index(req,res) {
+    const usuarios = await Usuarios.findAll();
+    return res.json(usuarios);
+    },
+
+    async store(req,res) {
+        const {nome,tipousuario,senha,cpf,email,cep,logradouro,numero,bairro,cidade,uf, complemento,permissao_alterar,permissao_excluir,permissao_baixa} = req.body;
+        const usuario = await Usuarios.create({nome,tipousuario,senha,cpf,email,cep,logradouro,numero,bairro,cidade,uf,complemento,permissao_alterar,permissao_excluir,permissao_baixa});
+        return res.status(200).send({
+            status: 1,
+            message: "Usuario Cadastrado com sucesso!",
+            usuario
+        })
+    },
+
+    async update(req, res){
+        const {nome,tipousuario,senha,cpf,email,cep,logradouro,numero,bairro,cidade,uf, complemento,permissao_alterar,permissao_excluir,permissao_baixa} = req.body;
+        const { codigo } = req.params;
+
+        await Usuarios.update({
+            nome,
+            tipousuario,
+            senha,
+            cpf,
+            email,
+            cep,
+            logradouro,
+            numero,
+            bairro,
+            cidade,
+            uf, 
+            complemento,
+            permissao_alterar,
+            permissao_baixa,
+            permissao_excluir},
+            {where: {id: codigo}});
+        return res.status(200).send({
+            status: 1,
+            message: "Usuario Atualizado com sucesso",
+        })
+    },
+
+    async delete(req, res) {
+        const { codigo } =req.params;
+
+        await Usuarios.destroy({
+            where: {
+                id: codigo
+            }
+        });
+        return res.status(200).send({
+            status: 1,
+            message: "Usuario Excluído com sucesso"
+        })
+    }
+
+}
