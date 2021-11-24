@@ -8,6 +8,7 @@ import Redefinir from '../pages/Redefinir'
 import Cadastrar from '../pages/Cadastrar'
 import Solicitar from '../pages/Solicitar'
 import Protocolo from '../pages/Protocolo'
+import DashPrefeitura from '../pages/DashPrefeitura'
 
 const Routes = () => {
     return(
@@ -38,6 +39,10 @@ const Routes = () => {
 
             <Route exact path='/dashboard/protocolo'>
                 <Protocolo/>
+            </Route>
+
+            <Route exact path='/prefeitura/dashboard'>
+                <DashPrefeitura/>
             </Route>
             
         </Switch>
