@@ -56,11 +56,9 @@ const Login = () => {
                     </form>
                     <hr/>
                     <p>Não tem cadastro?</p>
-                    <Button>Cadastrar-se</Button>
+                    <Link to='/cadastrar'><Button>Cadastrar-se</Button></Link>
                 </div>
             </main>
-
-
         </>
     )
 }
