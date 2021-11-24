@@ -23,7 +23,7 @@ const Login = () => {
     })
 
     const loginSubmit = (data) =>{
-        history.push(`/dashboard/${data.email}`)
+        history.push(`/dashboard`)
     }
 
 

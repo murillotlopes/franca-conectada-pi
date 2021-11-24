@@ -7,6 +7,7 @@ import Login from '../pages/Login'
 import Redefinir from '../pages/Redefinir'
 import Cadastrar from '../pages/Cadastrar'
 import Solicitar from '../pages/Solicitar'
+import Protocolo from '../pages/Protocolo'
 
 const Routes = () => {
     return(
@@ -27,16 +28,16 @@ const Routes = () => {
                 <Dashboard/>
             </Route>
 
-            <Route exact path='/dashboard/:id'>
-                <Dashboard/>
-            </Route>
-
             <Route exact path='/cadastrar'>
                 <Cadastrar/>
             </Route>
 
-            <Route exact path='/solicitar'>
+            <Route exact path='/dashboard/solicitar'>
                 <Solicitar/>
+            </Route>
+
+            <Route exact path='/dashboard/protocolo'>
+                <Protocolo/>
             </Route>
             
         </Switch>
