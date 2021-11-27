@@ -17,6 +17,5 @@ app.use(routesSolicitacao);
 app.use(routesUsuario);
 
 http.createServer(app).listen(app.get('porta'),function(){
-    console.log('/nServidor Rodando em ' + app.get('url') + app.get('porta'));
+    console.log('\nServidor Rodando em ' + app.get('url') + app.get('porta'));
 })
-
