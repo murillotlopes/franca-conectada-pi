@@ -8,7 +8,7 @@ require('./database/indexdb.js');
 
 const app = express();
 
-app.set('url','http://localhost');
+app.set('url','http://localhost:');
 app.set('porta',3333);
 
 app.use(express.json());

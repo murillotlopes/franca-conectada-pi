@@ -1,0 +1,66 @@
+
+.consultaMain{
+
+
+    width: 100vw;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    margin-top: 20px;
+}
+
+.consultaMain > div {
+    border: 1px solid var(--var-azul-claro);
+    border-radius: 8px;
+
+    padding: 15px;
+    margin-top: 10px;
+}
+
+.consultaMain li {
+    display: flex;
+
+    text-align: center;
+
+
+}
+
+.consultaMain li p{
+    border: 1px solid var(--var-azul-escuro);
+
+    font-size: 16px;
+
+    padding: 5px;
+
+    color: var(--var-cinza-50);
+}
+
+.consultaId{
+    width: 100px;
+}
+
+.consultaStatus{
+    width: 100px;
+}
+
+.consultaComentario{
+    width: 200px;
+}
+
+.consultaAcoes{
+    width: 100px;
+
+    color: var(--var-cinza-50);
+
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+ul .cabecalho p{
+    background-color: var(--var-azul);
+    color: var(--var-branco);
+}

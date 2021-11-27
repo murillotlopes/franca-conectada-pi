@@ -9,6 +9,7 @@ import Cadastrar from '../pages/Cadastrar'
 import Solicitar from '../pages/Solicitar'
 import Protocolo from '../pages/Protocolo'
 import DashPrefeitura from '../pages/DashPrefeitura'
+import Consulta from '../pages/Consulta'
 
 const Routes = () => {
     return(
@@ -37,8 +38,8 @@ const Routes = () => {
                 <Solicitar/>
             </Route>
 
-            <Route exact path='/dashboard/protocolo'>
-                <Protocolo/>
+            <Route exact path='/dashboard/consulta'>
+                <Consulta/>
             </Route>
 
             <Route exact path='/prefeitura/dashboard'>
