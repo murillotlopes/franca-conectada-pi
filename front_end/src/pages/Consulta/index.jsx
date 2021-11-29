@@ -12,8 +12,17 @@ const Consulta = () => {
 
     const [protoList, setProtoList] = useState(solicitacoes)
 
-
-    console.log(protoList)
+    const edit = (data) => {
+        console.log('edição')
+    }
+    
+    const visualizar = (data) => {
+        console.log('visualizar')
+    }
+    
+    const excluir = (data) => {
+        setProtoList(protoList.filter(e => e.id !== data))
+    }
 
     return(
         <>
@@ -27,11 +36,11 @@ const Consulta = () => {
                         <li className='cabecalho'>
                             <p className='consultaId'>Protocolo</p>
                             <p className='consultaStatus'>Status</p>
-                            <p className='consultaComentario'>Comentários</p>
+                            <p className='consultaComentario'>Comentário</p>
                             <p className='consultaAcoes'>Ações</p>
                         </li>
 
-                        { protoList.map( e => ( <ProtoTable e={e} key={e.id} /> )) }
+                        { protoList.map( e => ( <ProtoTable e={e} key={e.id} edit={edit} visualizar={visualizar} excluir={excluir} /> )) }
                     </ul>
                 </div>
             </main>
