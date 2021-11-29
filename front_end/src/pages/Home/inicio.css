@@ -1,11 +1,12 @@
 h1 {
     text-align: center;
-    padding-top: 25px;
     font-weight: bold;
+    font-size: 30px;
 }
 
-P {
-    padding-top: 25px;
+p {
+    padding-top: 20px;
+    font-size: 14px;
 }
 
 #content {
@@ -20,6 +21,10 @@ P {
     border-right: solid black ;
 }
 
+.card-1 img{
+    width: 500px;
+}
+
 .card-2 {
     padding: 30px 30px 30px 30px;
     width: 300px
@@ -27,14 +32,26 @@ P {
 
 #rua {
     max-width: 100%;
+    padding-top: 10px;
 }
 
 footer {
     background-color: var(--var-azul-escuro);
     display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    padding: 20px;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    padding: 16px 0 10px 0; 
+}
+
+footer #imgfooter {
+    width: 24px;
+    height: 24px;
+}
+
+footer #rodape {
+    font-size: 14px;
+    line-height: 20px;
+    color: #fff;
 }
 
 footer ul li {

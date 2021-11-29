@@ -1,12 +1,22 @@
+import {useParams} from 'react-router-dom'
 
-//Murillo
-//Registro de protocolo
-//Protocolo selecionado
+import Header from "../../components/Header"
+import Footer from "../../components/Footer"
+
 
 const Protocolo = () =>{
+
+    const params = useParams()
+
     return(
         <>
-        
+            <Header/>
+
+            <main>
+                {params.id}
+            </main>
+
+            <Footer/>
         </>
     )
 }

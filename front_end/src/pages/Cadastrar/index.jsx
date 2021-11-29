@@ -1,10 +1,11 @@
-import {Link, useHistory} from 'react-router-dom'
+import {useHistory} from 'react-router-dom'
 import * as yup from 'yup'
 import {yupResolver} from '@hookform/resolvers/yup'
 import {useForm} from 'react-hook-form'
 
 import Header from '../../components/Header'
 import Button from '../../components/Button'
+import Footer from '../../components/Footer'
 
 import './cadastrar.css'
 
@@ -16,9 +17,14 @@ const Cadastrar = () => {
         name: yup.string().required('Campo obrigatório'),
         email: yup.string().required('Campo obrigatório').email('E-mail inválido'),
         celular: yup.string().required('Campo obrigatório'),
-        nascimento: yup.date().required('Campo obrigatório'),
+        nascimento: yup.string().required('Campo obrigatório'),
         cep: yup.string().required('Campo obrigatório'),
+        logradouro: yup.string(),
+        complemento: yup.string(),
         numero: yup.number().required('Campo obrigatório'),
+        //bairro: yup.string().required('Campo obrigatório'),
+        //cidade: yup.string().required('Campo obrigatório'),
+        //uf: yup.string().required('Campo obrigatório'),
         password: yup.string().required('Campo obrigatório'),
         passwordConfirme: yup.string().required('Campo obrigatório')
     })
@@ -27,48 +33,11 @@ const Cadastrar = () => {
         resolver: yupResolver(formSchema)
     })
 
-
-
-    function limparCamposEndereco() {
-        document.getElementById('logradouro').value = '';
-        document.getElementById('bairro').value = '';
-        document.getElementById('cidade').value = '';
-        document.getElementById('uf').value = '';
-    }
-
-    function preencherEndereco(endereco){
-        document.getElementById('logradouro').value = endereco.logradouro;
-        document.getElementById('bairro').value = endereco.bairro;
-        document.getElementById('cidade').value = endereco.localidade;
-        document.getElementById('uf').value = endereco.uf;
-    }
-
-    function onBlurCep(ev){
-        const {value} = ev.target;
-        const cep= value?.replace(/[^0-9]/g,'');
-
-        if(cep?.length !== 8){
-            limparCamposEndereco();
-            document.getElementById('logradouro').value = 'CEP Inválido';
-            return;
-        }
-
-    fetch(`https://viacep.com.br/ws/${cep}/json/`)
-    .then((res) => res.json())
-    .then((data) => {
-        if (data.hasOwnProperty('erro')){
-            limparCamposEndereco();
-            document.getElementById('logradouro').value = 'Cep não encontrado!';
-        }
-        else{
-                preencherEndereco(data);
-        }
-        })
-    };
-
     const cadastrarSubmit = (data) =>{
-        history.push(`/dashboard/${data}`)
+        console.log(data)
+        history.push(`/login`)
     }
+
 
     return(
         <>
@@ -81,7 +50,8 @@ const Cadastrar = () => {
                     <p>Cadastre-se</p>
 
                     <form className='cadastrar-form' onSubmit={handleSubmit(cadastrarSubmit)}>
-                    <input 
+
+                        <input 
                             placeholder='nome completo' 
                             type='text' 
                             autoFocus
@@ -90,11 +60,18 @@ const Cadastrar = () => {
                         <span>{errors.name?.message}</span>
 
                         <input 
-                            placeholder='email' 
+                            placeholder='e-mail' 
                             type='email'
                             {...register('email')}    
                         />
                         <span>{errors.email?.message}</span>
+
+                        <input 
+                            placeholder='data de nascimento' 
+                            type='date'
+                            {...register('nascimento')}    
+                        />
+                        <span>{errors.nascimento?.message}</span>
                         
                         <input 
                             placeholder='celular' 
@@ -104,56 +81,48 @@ const Cadastrar = () => {
                         <span>{errors.celular?.message}</span>
 
                         <input 
-                            placeholder='Data de nascimento' 
-                            type='date'
-                            {...register('nascimento')}    
-                        />
-                        <span>{errors.nascimento?.message}</span>
-
-                        <input 
                             placeholder='CEP' 
                             type='text'
-                            id='cep'
                             {...register('cep')}    
-                            onBlur={onBlurCep}  
                         />
                         <span>{errors.cep?.message}</span>
-
+                        
                         <input 
-                            placeholder='Cidade' 
+                            placeholder='logradouro' 
                             type='text'
-                            id='cidade'
-                            readonly='readonly'
-                            {...register('cidade')}    
-                        />
-                      
-                        <input 
-                            placeholder='Logradouro' 
-                            type='text'
-                            id='logradouro'
                             readonly='readonly'
                             {...register('logradouro')}    
                         />
 
                         <input 
-                            placeholder='Número' 
+                            placeholder='número' 
                             type='number'
                             {...register('numero')}    
                         />
                         <span>{errors.numero?.message}</span>
 
+                        <input
+                            placeholder='complemento'
+                            {...register('complemento')}
+                        />
+
                         <input 
                             placeholder='Bairro' 
                             type='text'
-                            id='bairro'
                             readonly='readonly'
                             {...register('bairro')}    
                         />
 
                         <input 
+                            placeholder='Cidade' 
+                            type='text'
+                            readonly='readonly'
+                            {...register('cidade')}    
+                        />
+
+                        <input 
                             placeholder='UF' 
                             type='text'
-                            id='uf'
                             readonly='readonly'
                             {...register('uf')}    
                         />
@@ -172,16 +141,18 @@ const Cadastrar = () => {
                         />
                         <span>{errors.passwordConfirme?.message}</span>
 
-                        <Button>Salvar</Button>
+                        <Button type='submit'>Salvar</Button>
     
                     </form>
 
                     <hr/>
 
-                    <Link to='/login'><Button>Cancelar</Button></Link>
+                    <Button onClick={() => history.push('/')}>Cancelar</Button>
 
                 </div>
             </main>
+
+            <Footer/>
         </>
     )
 }
