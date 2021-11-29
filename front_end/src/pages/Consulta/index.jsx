@@ -1,25 +1,24 @@
 
 import Header from "../../components/Header"
 import ProtoTable from "../../components/ProtoTable"
+import Footer from "../../components/Footer"
 
-import { solicitacoes } from "../../components/data/tempTest"
+import { solicitacoes } from "../../data/tempTest"
 
 import { useState } from "react"
+import {useHistory} from 'react-router-dom'
 
 import './consulta.css'
 
 const Consulta = () => {
 
     const [protoList, setProtoList] = useState(solicitacoes)
+    const history = useHistory()
 
     const edit = (data) => {
-        console.log('edição')
+        history.push(`/dashboard/consulta/edit/${data}`)
     }
-    
-    const visualizar = (data) => {
-        console.log('visualizar')
-    }
-    
+        
     const excluir = (data) => {
         setProtoList(protoList.filter(e => e.id !== data))
     }
@@ -40,10 +39,21 @@ const Consulta = () => {
                             <p className='consultaAcoes'>Ações</p>
                         </li>
 
-                        { protoList.map( e => ( <ProtoTable e={e} key={e.id} edit={edit} visualizar={visualizar} excluir={excluir} /> )) }
+                        { protoList.map( e => ( 
+                        
+                            <ProtoTable 
+                                e={e} 
+                                key={e.id} 
+                                edit={edit}  
+                                excluir={excluir} 
+                            />
+
+                        )) }
                     </ul>
                 </div>
             </main>
+
+            <Footer/>
 
         </>
     )

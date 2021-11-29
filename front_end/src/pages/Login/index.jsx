@@ -6,6 +6,7 @@ import {useForm} from 'react-hook-form'
 
 import Header from '../../components/Header'
 import Button from '../../components/Button'
+import Footer from '../../components/Footer'
 
 import './login.css'
 
@@ -23,6 +24,7 @@ const Login = () => {
     })
 
     const loginSubmit = (data) =>{
+        // logica de validação do usuário
         history.push(`/dashboard`)
     }
 
@@ -59,6 +61,8 @@ const Login = () => {
                     <Link to='/cadastrar'><Button>Cadastrar-se</Button></Link>
                 </div>
             </main>
+
+            <Footer/>
         </>
     )
 }

@@ -42,9 +42,15 @@ const Routes = () => {
                 <Consulta/>
             </Route>
 
+            <Route exact path='/dashboard/consulta/edit/:id'>
+                <Protocolo/>
+            </Route>
+
             <Route exact path='/prefeitura/dashboard'>
                 <DashPrefeitura/>
             </Route>
+
+
             
         </Switch>
     )

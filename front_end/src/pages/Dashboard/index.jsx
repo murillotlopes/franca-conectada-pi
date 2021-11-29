@@ -1,37 +1,33 @@
 
-import {useParams, useHistory} from 'react-router-dom'
+import {useHistory} from 'react-router-dom'
 
 import Header from '../../components/Header'
 import Button from '../../components/Button'
+import Footer from '../../components/Footer'
 
 import './dashboard.css'
 
 const Dashboard = () => {
 
-    const params = useParams()
     const history = useHistory()
-
-    const logado = !!params.id
-
-
 
 
     return(
         <>
             <Header/>
 
-                <main className='dashboard'>
+            <main className='dashboard'>
 
-                    <p>Bem vindo {params.id} ao Franca Conectada</p>
-                    <p>Selecione um dos serviços disponíveis abaixo e colabore com sua cidade</p>
-                    <br/>
+                <p>Bem vindo ao Franca Conectada</p>
+                <p>Selecione um dos serviços disponíveis abaixo e colabore com sua cidade</p>
+                <br/>
 
-                    <Button onClick={() => history.push('/dashboard/solicitar')}>Informar um problema</Button>
-                    <Button onClick={() => history.push('/dashboard/consulta')}>Verificar minhas solicitações</Button>
+                <Button onClick={() => history.push('/dashboard/solicitar')}>Informar um problema</Button>
+                <Button onClick={() => history.push('/dashboard/consulta')}>Verificar minhas solicitações</Button>
 
-                </main>
+            </main>
 
-
+            <Footer/> 
         </>
     )
 }

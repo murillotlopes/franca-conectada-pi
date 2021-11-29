@@ -1,10 +1,11 @@
-import {Link, useHistory} from 'react-router-dom'
+import {useHistory} from 'react-router-dom'
 import * as yup from 'yup'
 import {yupResolver} from '@hookform/resolvers/yup'
 import {useForm} from 'react-hook-form'
 
 import Header from '../../components/Header'
 import Button from '../../components/Button'
+import Footer from '../../components/Footer'
 
 import './cadastrar.css'
 
@@ -16,9 +17,14 @@ const Cadastrar = () => {
         name: yup.string().required('Campo obrigatório'),
         email: yup.string().required('Campo obrigatório').email('E-mail inválido'),
         celular: yup.string().required('Campo obrigatório'),
-        nascimento: yup.date().required('Campo obrigatório'),
+        nascimento: yup.string().required('Campo obrigatório'),
         cep: yup.string().required('Campo obrigatório'),
+        logradouro: yup.string(),
+        complemento: yup.string(),
         numero: yup.number().required('Campo obrigatório'),
+        //bairro: yup.string().required('Campo obrigatório'),
+        //cidade: yup.string().required('Campo obrigatório'),
+        //uf: yup.string().required('Campo obrigatório'),
         password: yup.string().required('Campo obrigatório'),
         passwordConfirme: yup.string().required('Campo obrigatório')
     })
@@ -28,7 +34,8 @@ const Cadastrar = () => {
     })
 
     const cadastrarSubmit = (data) =>{
-        history.push(`/dashboard/${data}`)
+        console.log(data)
+        history.push(`/login`)
     }
 
 
@@ -43,7 +50,8 @@ const Cadastrar = () => {
                     <p>Cadastre-se</p>
 
                     <form className='cadastrar-form' onSubmit={handleSubmit(cadastrarSubmit)}>
-                    <input 
+
+                        <input 
                             placeholder='nome completo' 
                             type='text' 
                             autoFocus
@@ -52,11 +60,18 @@ const Cadastrar = () => {
                         <span>{errors.name?.message}</span>
 
                         <input 
-                            placeholder='email' 
+                            placeholder='e-mail' 
                             type='email'
                             {...register('email')}    
                         />
                         <span>{errors.email?.message}</span>
+
+                        <input 
+                            placeholder='data de nascimento' 
+                            type='date'
+                            {...register('nascimento')}    
+                        />
+                        <span>{errors.nascimento?.message}</span>
                         
                         <input 
                             placeholder='celular' 
@@ -66,45 +81,43 @@ const Cadastrar = () => {
                         <span>{errors.celular?.message}</span>
 
                         <input 
-                            placeholder='Data de nascimento' 
-                            type='date'
-                            {...register('nascimento')}    
-                        />
-                        <span>{errors.nascimento?.message}</span>
-
-                        <input 
                             placeholder='CEP' 
                             type='text'
                             {...register('cep')}    
                         />
                         <span>{errors.cep?.message}</span>
-
+                        
                         <input 
-                            placeholder='Cidade' 
-                            type='text'
-                            readonly='readonly'
-                            {...register('cidade')}    
-                        />
-                      
-                        <input 
-                            placeholder='Logradouro' 
+                            placeholder='logradouro' 
                             type='text'
                             readonly='readonly'
                             {...register('logradouro')}    
                         />
 
                         <input 
-                            placeholder='Número' 
+                            placeholder='número' 
                             type='number'
                             {...register('numero')}    
                         />
                         <span>{errors.numero?.message}</span>
+
+                        <input
+                            placeholder='complemento'
+                            {...register('complemento')}
+                        />
 
                         <input 
                             placeholder='Bairro' 
                             type='text'
                             readonly='readonly'
                             {...register('bairro')}    
+                        />
+
+                        <input 
+                            placeholder='Cidade' 
+                            type='text'
+                            readonly='readonly'
+                            {...register('cidade')}    
                         />
 
                         <input 
@@ -128,16 +141,18 @@ const Cadastrar = () => {
                         />
                         <span>{errors.passwordConfirme?.message}</span>
 
-                        <Button>Salvar</Button>
+                        <Button type='submit'>Salvar</Button>
     
                     </form>
 
                     <hr/>
 
-                    <Link to='/login'><Button>Cancelar</Button></Link>
+                    <Button onClick={() => history.push('/')}>Cancelar</Button>
 
                 </div>
             </main>
+
+            <Footer/>
         </>
     )
 }
