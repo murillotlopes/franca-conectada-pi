@@ -10,6 +10,7 @@ import Solicitar from '../pages/Solicitar'
 import Protocolo from '../pages/Protocolo'
 import DashPrefeitura from '../pages/DashPrefeitura'
 import Consulta from '../pages/Consulta'
+import Ajuda from '../pages/ajuda'
 
 const Routes = () => {
     return(
@@ -44,6 +45,10 @@ const Routes = () => {
 
             <Route exact path='/prefeitura/dashboard'>
                 <DashPrefeitura/>
+            </Route>
+
+            <Route exact path='/ajuda'>
+                <Ajuda/>
             </Route>
             
         </Switch>
