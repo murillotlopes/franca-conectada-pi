@@ -24,10 +24,9 @@ const Dashboard = () => {
 
                     <p>Bem vindo {params.id} ao Franca Conectada</p>
                     <p>Selecione um dos serviços disponíveis abaixo e colabore com sua cidade</p>
-                    <br/>
 
                     <Button onClick={() => history.push('/dashboard/solicitar')}>Informar um problema</Button>
-                    <Button onClick={() => history.push('/dashboard/consulta')}>Verificar minhas solicitações</Button>
+                    <Button onClick={() => history.push('/dashboard/protocolo')}>Verificar minhas solicitações</Button>
 
                 </main>
 

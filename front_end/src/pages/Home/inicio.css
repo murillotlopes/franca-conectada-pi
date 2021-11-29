@@ -1,12 +1,11 @@
 h1 {
     text-align: center;
+    padding-top: 25px;
     font-weight: bold;
-    font-size: 30px;
 }
 
-p {
-    padding-top: 20px;
-    font-size: 14px;
+P {
+    padding-top: 25px;
 }
 
 #content {
@@ -28,26 +27,14 @@ p {
 
 #rua {
     max-width: 100%;
-    padding-top: 10px;
 }
 
 footer {
     background-color: var(--var-azul-escuro);
     display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
-    padding: 16px 0 10px 0; 
-}
-
-footer #imgfooter {
-    width: 24px;
-    height: 24px;
-}
-
-footer #rodape {
-    font-size: 14px;
-    line-height: 20px;
-    color: #fff;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 20px;
 }
 
 footer ul li {

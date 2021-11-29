@@ -27,10 +27,48 @@ const Cadastrar = () => {
         resolver: yupResolver(formSchema)
     })
 
+
+
+    function limparCamposEndereco() {
+        document.getElementById('logradouro').value = '';
+        document.getElementById('bairro').value = '';
+        document.getElementById('cidade').value = '';
+        document.getElementById('uf').value = '';
+    }
+
+    function preencherEndereco(endereco){
+        document.getElementById('logradouro').value = endereco.logradouro;
+        document.getElementById('bairro').value = endereco.bairro;
+        document.getElementById('cidade').value = endereco.localidade;
+        document.getElementById('uf').value = endereco.uf;
+    }
+
+    function onBlurCep(ev){
+        const {value} = ev.target;
+        const cep= value?.replace(/[^0-9]/g,'');
+
+        if(cep?.length !== 8){
+            limparCamposEndereco();
+            document.getElementById('logradouro').value = 'CEP Inválido';
+            return;
+        }
+
+    fetch(`https://viacep.com.br/ws/${cep}/json/`)
+    .then((res) => res.json())
+    .then((data) => {
+        if (data.hasOwnProperty('erro')){
+            limparCamposEndereco();
+            document.getElementById('logradouro').value = 'Cep não encontrado!';
+        }
+        else{
+                preencherEndereco(data);
+        }
+        })
+    };
+
     const cadastrarSubmit = (data) =>{
         history.push(`/dashboard/${data}`)
     }
-
 
     return(
         <>
@@ -75,13 +113,16 @@ const Cadastrar = () => {
                         <input 
                             placeholder='CEP' 
                             type='text'
+                            id='cep'
                             {...register('cep')}    
+                            onBlur={onBlurCep}  
                         />
                         <span>{errors.cep?.message}</span>
 
                         <input 
                             placeholder='Cidade' 
                             type='text'
+                            id='cidade'
                             readonly='readonly'
                             {...register('cidade')}    
                         />
@@ -89,6 +130,7 @@ const Cadastrar = () => {
                         <input 
                             placeholder='Logradouro' 
                             type='text'
+                            id='logradouro'
                             readonly='readonly'
                             {...register('logradouro')}    
                         />
@@ -103,6 +145,7 @@ const Cadastrar = () => {
                         <input 
                             placeholder='Bairro' 
                             type='text'
+                            id='bairro'
                             readonly='readonly'
                             {...register('bairro')}    
                         />
@@ -110,6 +153,7 @@ const Cadastrar = () => {
                         <input 
                             placeholder='UF' 
                             type='text'
+                            id='uf'
                             readonly='readonly'
                             {...register('uf')}    
                         />

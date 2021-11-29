@@ -52,7 +52,7 @@ const Login = () => {
                         <span>{errors.password?.message}</span>
 
                         <Button>Entrar</Button>
-                        <Link to='/redefinir'><p className='redefinir'>Esqueci a senha</p></Link>
+                        <Link to='/redefinir'><p className='redefinir'>Esqueci minha senha</p></Link>
                     </form>
                     <hr/>
                     <p>Não tem cadastro?</p>
