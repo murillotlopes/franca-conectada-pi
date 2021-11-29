@@ -25,19 +25,19 @@ const Home = () => {
                 </aside>
             </div>
             <footer>
-                <a href="#"><img src={face} alt=""/></a>
-                <a href="#"><img src={insta} alt=""/></a>
-                <a href="#"><img src={whats} alt=""/></a>
-                <ul>
-                    <li><a href="#">Quem somos</a></li>
-                    <li><a href="#">Nossa missão</a></li>
-                    <li><a href="#">Comercial</a></li>
-                </ul>
-                <adress>
-                    R. Frederico Moura, 1517 <br/> Cidade Nova, Franca - SP,<br/>
-                    <a href="tel:+551637119000">(16)3711-9000</a><br/>
-                    <a href="mailto:ouvidoria@franca.sp.gov.br">ouvidoria@franca.sp.gov.br</a>
+                <adress id="rodape"> 
+                    Rua Frederico Moura, 1517 <br/> Cidade Nova, Franca - SP<br/>
+                    <a id="rodape" href="tel:+551637119000">(16) 3711-9000</a><br/>
+                    <a id="rodape" href="mailto:ouvidoria@franca.sp.gov.br">ouvidoria@franca.sp.gov.br</a>
                 </adress>
+                <ul>
+                    <li><a id="rodape" href="#">Quem somos</a></li>
+                    <li><a id="rodape" href="#">Nossa missão</a></li>
+                    <li><a id="rodape" href="#">Comercial</a></li>
+                </ul>
+                <a id="imgfooter" href="#"><img src={face} alt="facebook"/></a>
+                <a id="imgfooter" href="#"><img src={insta} alt="instagram"/></a>
+                <a id="imgfooter" href="#"><img src={whats} alt="whatsapp"/></a>
             </footer>
         </>
     )
