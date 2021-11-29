@@ -21,6 +21,10 @@ p {
     border-right: solid black ;
 }
 
+.card-1 img{
+    width: 500px;
+}
+
 .card-2 {
     padding: 30px 30px 30px 30px;
     width: 300px
