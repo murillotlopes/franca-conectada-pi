@@ -46,10 +46,8 @@ const Cadastrar = () => {
         delete data.confirmaSenha
         delete data.celular
 
-        console.log(data)
-        api.post('/usuarios').then(res => {
-            console.log(res)
-            //toast.success(res.message)
+        api.post('/usuarios', data).then(res => {
+            toast.success('Cadastro realizado com sucesso')
             toast.success('Faça login para entrar!')
             history.push('/login')
         }).catch(err => {

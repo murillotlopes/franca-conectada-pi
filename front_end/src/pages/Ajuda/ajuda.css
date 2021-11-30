@@ -1,0 +1,66 @@
+.ajuda-main{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+
+.ajuda-main h1{
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 30px;
+}
+
+.form-container{
+    border: 0.5px solid var(--var-azul-claro);
+    background-color: rgba(0, 0, 0, 0.1);
+    border-radius: var(--var-border-radius);
+    padding: 30px;
+    min-width: 300px;
+    text-align: center;
+    display: block;
+    margin: 0 auto;
+    position: relative;
+
+    width:30%;
+}
+
+form.ajuda-form {
+    padding: 50px;
+}
+
+.form-container p{
+    font-size: 18px;
+    font-weight: bold;
+    margin: 10px 0;
+}
+
+.form-container hr{
+    margin: 15px 5px;
+    height: 1.5px;
+
+    border: none;
+    background-color: var(--var-azul-claro);
+}
+
+.ajuda-form{
+    flex-direction: column;
+    display: inline-block;
+    position: relative;
+}
+
+.ajuda-form input{
+    margin: 10px 0;
+    padding: 5px 7px;
+    background-color: var(--var-branco);
+    border-radius: var(--var-border-radius);
+    border: none;
+    width: 250px;
+    height: 35px;
+}
+
+.button{
+    margin: 10px 0;
+}

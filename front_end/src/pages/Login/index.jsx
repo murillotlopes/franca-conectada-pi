@@ -9,6 +9,8 @@ import Button from '../../components/Button'
 import Footer from '../../components/Footer'
 
 import './login.css'
+import api from '../../services/api'
+import { toast } from 'react-toastify'
 
 const Login = () => {
 
@@ -16,7 +18,7 @@ const Login = () => {
 
     const formSchema = yup.object().shape({
         email: yup.string().required('Campo obrigatório').email('E-mail inválido'),
-        password: yup.string().required('Campo obrigatório')
+        senha: yup.string().required('Campo obrigatório')
     })
 
     const {register, handleSubmit, formState: {errors}} = useForm({
@@ -24,8 +26,17 @@ const Login = () => {
     })
 
     const loginSubmit = (data) =>{
-        // logica de validação do usuário
-        history.push(`/dashboard`)
+        api.get(`/usuarios/${data.email}`).then(res => {
+            
+            if (data.senha === res.data.usuario[0].senha){
+                history.push('/dashboard')
+                toast.success('Bem vindo a área logada')
+            }else{
+                toast.error('Senha inválida')
+            }
+        }).catch(err => {
+            toast.error('E-mail inválido')
+        })
     }
 
 
@@ -49,11 +60,11 @@ const Login = () => {
                         <input 
                             placeholder='senha' 
                             type='password'
-                            {...register('password')}    
+                            {...register('senha')}    
                         />
                         <span>{errors.password?.message}</span>
 
-                        <Button>Entrar</Button>
+                        <Button type='submit'>Entrar</Button>
                         <Link to='/redefinir'><p className='redefinir'>Esqueci a senha</p></Link>
                     </form>
                     <hr/>
