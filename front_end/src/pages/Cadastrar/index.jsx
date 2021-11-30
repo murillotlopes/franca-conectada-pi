@@ -2,31 +2,39 @@ import {useHistory} from 'react-router-dom'
 import * as yup from 'yup'
 import {yupResolver} from '@hookform/resolvers/yup'
 import {useForm} from 'react-hook-form'
+import { toast } from 'react-toastify'
 
 import Header from '../../components/Header'
 import Button from '../../components/Button'
 import Footer from '../../components/Footer'
 
 import './cadastrar.css'
+import api from '../../services/api'
 
 const Cadastrar = () => {
 
     const history = useHistory()
+    const zero = 0
 
     const formSchema = yup.object().shape({
-        name: yup.string().required('Campo obrigatório'),
+        nome: yup.string().required('Campo obrigatório').matches(/[a-zA-Z]+/g, 'Apenas letras'),
+        tipousuario: yup.string(),
         email: yup.string().required('Campo obrigatório').email('E-mail inválido'),
-        celular: yup.string().required('Campo obrigatório'),
-        nascimento: yup.string().required('Campo obrigatório'),
+        cpf: yup.string().required('Campo obrigatório'),
+        //celular: yup.string().required('Campo obrigatório'),
+        //nascimento: yup.string().required('Campo obrigatório'),
         cep: yup.string().required('Campo obrigatório'),
-        logradouro: yup.string(),
+        logradouro: yup.string().required('Campo obrigatório'),
         complemento: yup.string(),
-        numero: yup.number().required('Campo obrigatório'),
-        //bairro: yup.string().required('Campo obrigatório'),
-        //cidade: yup.string().required('Campo obrigatório'),
-        //uf: yup.string().required('Campo obrigatório'),
-        password: yup.string().required('Campo obrigatório'),
-        passwordConfirme: yup.string().required('Campo obrigatório')
+        numero: yup.string().required('Campo obrigatório'),
+        bairro: yup.string().required('Campo obrigatório'),
+        cidade: yup.string().required('Campo obrigatório'),
+        uf: yup.string().required('Campo obrigatório'),
+        senha: yup.string().required('Campo obrigatório'),
+        confirmaSenha: yup.string().required('Campo obrigatório').oneOf([yup.ref('senha'), 'as senhas não conferem']),
+        permissao_alterar: yup.number(),
+        permissao_excluir: yup.number(),
+        permissao_baixa: yup.number()
     })
 
     const {register, handleSubmit, formState: {errors}} = useForm({
@@ -34,8 +42,20 @@ const Cadastrar = () => {
     })
 
     const cadastrarSubmit = (data) =>{
+
+        delete data.confirmaSenha
+        delete data.celular
+
         console.log(data)
-        history.push(`/login`)
+        api.post('/usuarios').then(res => {
+            console.log(res)
+            //toast.success(res.message)
+            toast.success('Faça login para entrar!')
+            history.push('/login')
+        }).catch(err => {
+            toast.error('Ops, algo deu errado. Tente novamente!')
+            console.log(err)
+        })
     }
 
     function limparCamposEndereco() {
@@ -92,18 +112,29 @@ const Cadastrar = () => {
                             placeholder='nome completo' 
                             type='text' 
                             autoFocus
-                            {...register('name')}
+                            {...register('nome')}
                         />
-                        <span>{errors.name?.message}</span>
+                        <br/><span>{errors.nome?.message}</span>
+
+                        <input type='hidden' value='M' {...register('tipousuario')}/>
+                        <input type='hidden' value={zero} {...register('permissao_alterar')}/>
+                        <input type='hidden' value={zero} {...register('permissao_excluir')}/>
+                        <input type='hidden' value={zero} {...register('permissao_baixa')}/>
 
                         <input 
                             placeholder='e-mail' 
                             type='email'
                             {...register('email')}    
                         />
-                        <span>{errors.email?.message}</span>
+                        <br/><span>{errors.email?.message}</span>
 
                         <input 
+                            placeholder='cpf'
+                            {...register('cpf')}
+                        />
+                        <br/><span>{errors.cpf?.message}</span>
+
+{/*                         <input 
                             placeholder='data de nascimento' 
                             type='date'
                             {...register('nascimento')}    
@@ -115,7 +146,7 @@ const Cadastrar = () => {
                             type='text'
                             {...register('celular')}    
                         />
-                        <span>{errors.celular?.message}</span>
+                        <span>{errors.celular?.message}</span> */}
 
                         <input 
                             placeholder='CEP' 
@@ -123,7 +154,7 @@ const Cadastrar = () => {
                             {...register('cep')} 
                             onBlur={onBlurCep}   
                         />
-                        <span>{errors.cep?.message}</span>
+                        <br/><span>{errors.cep?.message}</span>
                         
                         <input 
                             placeholder='logradouro' 
@@ -132,58 +163,62 @@ const Cadastrar = () => {
                             readonly='readonly'
                             {...register('logradouro')}    
                         />
+                        <br/><span>{errors.logradouro?.message}</span>
 
                         <input 
                             placeholder='número' 
-                            type='number'
                             {...register('numero')}    
                         />
-                        <span>{errors.numero?.message}</span>
+                        <br/><span>{errors.numero?.message}</span>
 
                         <input
                             placeholder='complemento'
                             {...register('complemento')}
                         />
+                        <br/><span>{errors.complemento?.message}</span>
 
                         <input 
-                            placeholder='Bairro' 
+                            placeholder='bairro' 
                             type='text'
                             id='bairro'
                             readonly='readonly'
                             {...register('bairro')}    
                         />
+                        <br/><span>{errors.bairro?.message}</span>
 
                         <input 
-                            placeholder='Cidade' 
+                            placeholder='cidade' 
                             type='text'
                             id='cidade'
                             readonly='readonly'
                             {...register('cidade')}    
                         />
+                        <br/><span>{errors.cidade?.message}</span>
 
                         <input 
-                            placeholder='UF' 
+                            placeholder='uf' 
                             type='text'
                             id='uf'
                             readonly='readonly'
                             {...register('uf')}    
                         />
+                        <br/><span>{errors.uf?.message}</span>
 
                         <input 
-                            placeholder='Senha' 
+                            placeholder='senha' 
                             type='password'
-                            {...register('password')}    
+                            {...register('senha')}    
                         />
-                        <span>{errors.password?.message}</span>
+                        <br/><span>{errors.senha?.message}</span>
 
                         <input 
-                            placeholder='Confirme a Senha' 
+                            placeholder='sonfirme a senha' 
                             type='password'
-                            {...register('passwordConfirme')}    
+                            {...register('confirmaSenha')}    
                         />
-                        <span>{errors.passwordConfirme?.message}</span>
+                        <br/><span>{errors.confirmaSenha?.message}</span>
 
-                        <Button type='submit'>Salvar</Button>
+                        <br/><Button type='submit'>Salvar</Button>
     
                     </form>
 
