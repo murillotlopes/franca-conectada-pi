@@ -37,6 +37,50 @@ const Solicitar = () => {
         history.push(`/dashboard`)
     }
 
+    function limparCamposEndereco() {
+        document.getElementById('logradouro').value = '';
+        document.getElementById('bairro').value = '';
+        document.getElementById('cidade').value = '';
+        document.getElementById('uf').value = '';
+    }
+
+    function preencherEndereco(endereco){
+        document.getElementById('logradouro').value = endereco.logradouro;
+        document.getElementById('bairro').value = endereco.bairro;
+        document.getElementById('cidade').value = endereco.localidade;
+        document.getElementById('uf').value = endereco.uf;
+    }
+
+
+    function onBlurCep(ev){
+        const {value} = ev.target;
+        const cep= value?.replace(/[^0-9]/g,'');
+
+        if(cep?.length !== 8){
+            limparCamposEndereco();
+            document.getElementById('logradouro').value = 'CEP Inválido';
+            return;
+        }
+
+    fetch(`https://viacep.com.br/ws/${cep}/json/`)
+    .then((res) => res.json())
+    .then((data) => {
+        if (data.hasOwnProperty('erro')){
+            limparCamposEndereco();
+            document.getElementById('logradouro').value = 'Cep não encontrado!';
+        }
+        else{
+            if(data.localidade != 'Franca'){
+                limparCamposEndereco();
+                document.getElementById('logradouro').value = 'Local fora do Municípo de Franca!';
+            }
+            else{
+                preencherEndereco(data);
+            }
+        }
+        })
+    };
+
 
     return(
         <>
@@ -62,7 +106,9 @@ const Solicitar = () => {
                             placeholder='CEP' 
                             type='text'
                             autofocus
+                            id='cep'
                             {...register('cep')}    
+                            onBlur={onBlurCep}
                         />
                         <span>{errors.cep?.message}</span>
 
@@ -70,6 +116,7 @@ const Solicitar = () => {
                             placeholder='Logradouro' 
                             type='text'
                             readonly='readonly'
+                            id='logradouro'
                             {...register('logradouro')}    
                         />
 
@@ -87,6 +134,7 @@ const Solicitar = () => {
                         <input 
                             placeholder='Bairro' 
                             type='text'
+                            id='bairro'
                             readonly='readonly'
                             {...register('bairro')}    
                         />
@@ -94,13 +142,15 @@ const Solicitar = () => {
                         <input 
                             placeholder='Cidade' 
                             type='text'
+                            id='cidade'
                             readonly='readonly'
                             {...register('cidade')}    
                         />
 
                         <input 
-                            placeholder='estado' 
+                            placeholder='Estado' 
                             type='text'
+                            id='uf'
                             readonly='readonly'
                             {...register('uf')}    
                         />
