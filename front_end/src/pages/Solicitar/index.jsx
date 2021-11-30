@@ -1,4 +1,4 @@
-import {Link, useHistory} from 'react-router-dom'
+import {useHistory} from 'react-router-dom'
 import * as yup from 'yup'
 import {yupResolver} from '@hookform/resolvers/yup'
 import {useForm} from 'react-hook-form'
@@ -6,26 +6,42 @@ import {useForm} from 'react-hook-form'
 import Header from '../../components/Header'
 import Button from '../../components/Button'
 import Footer from '../../components/Footer'
+import api from '../../services/api'
 
 import './solicitar.css'
+import { toast } from 'react-toastify'
+
 
 const Solicitar = () => {
 
     const history = useHistory()
 
+    const {id} = JSON.parse(localStorage.getItem('@fraConect:usuario'))
+
+    const dataAtual = () => {
+
+        const data = new Date()
+        const dia = String(data.getDate()).padStart(2, '0')
+        const mes= String(data.getMonth() + 1).padStart(2,'0')
+        const ano = data.getFullYear()
+
+        return `${ano}-${mes}-${dia}`
+    }
+
+    const dataAgora = dataAtual()
+
+    //console.log(typeof(dataAtual()))
+
     const formSchema = yup.object().shape({
-        
+        codusuario: yup.number(),
+        dataregistro: yup.string(),
+        estadosolicitacao: yup.string(),
         cep: yup.string().required('Campo obrigatório'),
         logradouro: yup.string().required('Campo obrigatório'),
-        numero: yup.string().required('Campo obrigatório'),
-        complemento: yup.string(),
         bairro: yup.string().required('Campo obrigatório'),
-        cidade: yup.string().required('Campo obrigatório'),
-        uf: yup.string().required('Campo obrigatório'),
         referencia: yup.string().required('Campo obrigatório'),
-        longitude: yup.string().required('Campo obrigatório'),
-        latitude: yup.string().required('Campo obrigatório'),
-
+        longitude: yup.number(),
+        latitude: yup.number(),
     })
 
     const {register, handleSubmit, formState: {errors}} = useForm({
@@ -33,22 +49,30 @@ const Solicitar = () => {
     })
 
     const solicitarSubmit = (data) =>{
-        console.log(data)
-        history.push(`/dashboard`)
+
+        //console.log(data)
+        api.post(`/solicitacoes/${data}`).then(res => {
+            //console.log(res)
+            history.push(`/dashboard`)
+            toast.success('Solicitação aberta com sucesso!')
+        }).catch(err => {
+            console.log(err)
+            toast.error('Ops, algo deu errado. Tente novamente!')
+        })
     }
 
     function limparCamposEndereco() {
         document.getElementById('logradouro').value = '';
         document.getElementById('bairro').value = '';
-        document.getElementById('cidade').value = '';
-        document.getElementById('uf').value = '';
+        //document.getElementById('cidade').value = '';
+        //document.getElementById('uf').value = '';
     }
 
     function preencherEndereco(endereco){
         document.getElementById('logradouro').value = endereco.logradouro;
         document.getElementById('bairro').value = endereco.bairro;
-        document.getElementById('cidade').value = endereco.localidade;
-        document.getElementById('uf').value = endereco.uf;
+        //document.getElementById('cidade').value = endereco.localidade;
+        //document.getElementById('uf').value = endereco.uf;
     }
 
 
@@ -70,7 +94,7 @@ const Solicitar = () => {
             document.getElementById('logradouro').value = 'Cep não encontrado!';
         }
         else{
-            if(data.localidade != 'Franca'){
+            if(data.localidade !== 'Franca'){
                 limparCamposEndereco();
                 document.getElementById('logradouro').value = 'Local fora do Municípo de Franca!';
             }
@@ -99,8 +123,13 @@ const Solicitar = () => {
                             placeholder='Protocolo' 
                             type='text'
                             readonly='readonly' 
-                            {...register('protocolo')}
+                            //{...register('protocolo')}
                         />
+
+                        <input type='hidden' value={dataAgora} {...register('dataregistro')} />
+                        <input type='hidden' value='aberta' {...register('estadosolicitacao')} />
+                        <input type='hidden' value={id} {...register('codusuario')}/>
+
                         
                         <input 
                             placeholder='CEP' 
@@ -110,7 +139,7 @@ const Solicitar = () => {
                             {...register('cep')}    
                             onBlur={onBlurCep}
                         />
-                        <span>{errors.cep?.message}</span>
+                        <br/><span>{errors.cep?.message}</span>
 
                         <input 
                             placeholder='Logradouro' 
@@ -119,17 +148,7 @@ const Solicitar = () => {
                             id='logradouro'
                             {...register('logradouro')}    
                         />
-
-                        <input 
-                            placeholder='Número'
-                            {...register('numero')}    
-                        />
-                        <span>{errors.numero?.message}</span>
-
-                        <input
-                            placeholder='complemento'
-                            {...register('complemento')}
-                        />
+                        <br/><span>{errors.logradouro?.message}</span>
 
                         <input 
                             placeholder='Bairro' 
@@ -138,42 +157,32 @@ const Solicitar = () => {
                             readonly='readonly'
                             {...register('bairro')}    
                         />
-
-                        <input 
-                            placeholder='Cidade' 
-                            type='text'
-                            id='cidade'
-                            readonly='readonly'
-                            {...register('cidade')}    
-                        />
-
-                        <input 
-                            placeholder='Estado' 
-                            type='text'
-                            id='uf'
-                            readonly='readonly'
-                            {...register('uf')}    
-                        />
-                               
+                        <br/><span>{errors.bairro?.message}</span>
+     
                         <input  
                             placeholder='Ponto de Referência'
                             type='text'
                             {...register('referencia')}
                         />
+                        <br/><span>{errors.referencia?.message}</span>
 
                         {/*API Google Maps */}
 
                         <input
                             placeholder='Longitude'
                             type='text'
+                            value={0}
                             {...register('longitude')}
                         />
+                        <br/><span>{errors.longitude?.message}</span>
 
                         <input
                             placeholder='Latitude'
                             type='text'
+                            value={0}
                             {...register('latitude')}
                         />
+                        <br/><span>{errors.latitude?.message}</span>
 
                         <input
                             type='file'

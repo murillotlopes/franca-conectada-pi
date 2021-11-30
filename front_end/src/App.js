@@ -6,22 +6,23 @@ import "react-toastify/dist/ReactToastify.css";
 
 function App() {
   return (
-    <div className='body'>
-      <Routes/>
-
+    <>
+      <div className='body'>
+        <Routes/>        
+      </div>
       <ToastContainer
-        position="top-right"
-        autoClose={5000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-      />
-      
-    </div>
+          position="top-right"
+          autoClose={5000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+        />
+    </>
+
   );
 }
 

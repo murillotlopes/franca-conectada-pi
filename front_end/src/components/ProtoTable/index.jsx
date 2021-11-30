@@ -10,6 +10,7 @@ const ProtoTable = ({e, edit, excluir}) => {
         <li>
             <p className='consultaId'>{e.id}</p>
             <p className='consultaStatus'>{e.estadosolicitacao}</p>
+            <p className='consultaRua'>{e.logradouro}</p>
             <p className='consultaComentario'>{e.referencia}</p>
             <p className='consultaAcoes'>
                 <button onClick={() => edit(e.id)}><ImPencil /></button>

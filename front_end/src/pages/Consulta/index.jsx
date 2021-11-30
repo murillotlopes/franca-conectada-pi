@@ -3,30 +3,47 @@ import Header from "../../components/Header"
 import ProtoTable from "../../components/ProtoTable"
 import Footer from "../../components/Footer"
 
-import { solicitacoes } from "../../data/tempTest"
+//import { solicitacoes } from "../../data/tempTest"
 import api from "../../services/api"
 
 import { useState, useEffect } from "react"
 import {useHistory} from 'react-router-dom'
 
 import './consulta.css'
+import { toast } from "react-toastify"
 
 const Consulta = () => {
 
-    const [protoList, setProtoList] = useState(solicitacoes)
+    const [protoList, setProtoList] = useState([])
     const history = useHistory()
+
+    const {id} = JSON.parse(localStorage.getItem('@fraConect:usuario'))
 
     const edit = (data) => {
         history.push(`/dashboard/consulta/edit/${data}`)
     }
 
     useEffect(()=> {
-        api.get('solicitacoes').then(resp => console.log(resp.data)).catch(err => console.log('falhou', err))
-    },[])
+        api.get('solicitacoes').then(resp => {
+            const protocolosUsuario = resp.data.filter( e => e.codusuario === id)
+            setProtoList(protocolosUsuario)
+        }).catch(err => {
+            console.log('falhou', err)
+        })
+    },[protoList])
+
+    console.log(protoList)
         
         
     const excluir = (data) => {
-        setProtoList(protoList.filter(e => e.id !== data))
+        console.log(data)
+
+        api.delete(`/solicitacoes/${data}`).then(res => {
+            toast.success('Solicitação excluída')
+        }).catch(err => {
+            toast.error('Ops. Não foi possível excluir. Tente novamente!')
+        })
+
     }
 
     return(
@@ -41,6 +58,7 @@ const Consulta = () => {
                         <li className='cabecalho'>
                             <p className='consultaId'>Protocolo</p>
                             <p className='consultaStatus'>Status</p>
+                            <p className='consultaRua'>Logradouro</p>
                             <p className='consultaComentario'>Comentário</p>
                             <p className='consultaAcoes'>Ações</p>
                         </li>

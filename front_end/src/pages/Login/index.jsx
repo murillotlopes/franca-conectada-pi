@@ -31,6 +31,8 @@ const Login = () => {
             if (data.senha === res.data.usuario[0].senha){
                 history.push('/dashboard')
                 toast.success('Bem vindo a área logada')
+                localStorage.clear()
+                localStorage.setItem('@fraConect:usuario', JSON.stringify(res.data.usuario[0]))
             }else{
                 toast.error('Senha inválida')
             }
