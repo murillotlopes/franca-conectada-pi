@@ -4,6 +4,11 @@ import {Link} from 'react-router-dom'
 import './header.css'
 
 const Header = () => {
+
+    const sair = () => {
+        localStorage.clear()
+    }
+
     return(
         <header className='header'>
             <ul>
@@ -21,6 +26,10 @@ const Header = () => {
 
                 <Link to='/login'>
                     <li>Login</li>
+                </Link>
+
+                <Link to='/' onClick={sair}>
+                    <li>Sair</li>
                 </Link>
 
             </ul>

@@ -3,7 +3,6 @@ import Header from "../../components/Header"
 import ProtoTable from "../../components/ProtoTable"
 import Footer from "../../components/Footer"
 
-//import { solicitacoes } from "../../data/tempTest"
 import api from "../../services/api"
 
 import { useState, useEffect } from "react"
@@ -11,6 +10,7 @@ import {useHistory} from 'react-router-dom'
 
 import './consulta.css'
 import { toast } from "react-toastify"
+import Button from "../../components/Button"
 
 const Consulta = () => {
 
@@ -24,7 +24,7 @@ const Consulta = () => {
     }
 
     useEffect(()=> {
-        api.get('solicitacoes').then(resp => {
+        api.get('/solicitacoes').then(resp => {
             const protocolosUsuario = resp.data.filter( e => e.codusuario === id)
             setProtoList(protocolosUsuario)
         }).catch(err => {
@@ -43,7 +43,6 @@ const Consulta = () => {
         }).catch(err => {
             toast.error('Ops. Não foi possível excluir. Tente novamente!')
         })
-
     }
 
     return(
@@ -74,6 +73,8 @@ const Consulta = () => {
 
                         )) }
                     </ul>
+
+                    <Button onClick={() => history.push('/dashboard')}>Voltar</Button>
                 </div>
             </main>
 

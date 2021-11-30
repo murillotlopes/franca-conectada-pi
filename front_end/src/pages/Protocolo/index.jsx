@@ -1,4 +1,4 @@
-import {useParams} from 'react-router-dom'
+import {useParams, useHistory} from 'react-router-dom'
 import * as yup from 'yup'
 import {useForm} from 'react-hook-form'
 import {yupResolver} from '@hookform/resolvers/yup'
@@ -6,26 +6,41 @@ import {yupResolver} from '@hookform/resolvers/yup'
 import Header from "../../components/Header"
 import Footer from "../../components/Footer"
 import Button from '../../components/Button'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import api from '../../services/api'
 
 import './protocolo.css'
+import { toast } from 'react-toastify'
 
 
 const Protocolo = () =>{
 
     const params = useParams()
+    const history = useHistory()
 
     const {id} = JSON.parse(localStorage.getItem('@fraConect:usuario'))
 
-    const [solicitacao, setSolicitacao] = useState(()=> {
-        api.get(`/solicitacoes/${params.id}`).then( res => {
-            console.log(res)
-            return res
-        })
-    })
+    const [cep, setCep] =useState('')
+    const [logradouro, setLogradouro] = useState('')
+    const [bairro, setBairro] = useState('')
+    const [referencia, setReferencia] = useState('')
+    const [longitude, setLongitude] = useState(0)
+    const [latitude, setLatitude] = useState(0)
+    const [prot, setProt] = useState(0)
 
-    console.log(solicitacao)
+    useEffect(()=> {
+
+        api.get(`/solicitacoes/${params.id}`).then( res => {
+            setCep(res.data.solicitacao[0].cep)
+            setLogradouro(res.data.solicitacao[0].logradouro)
+            setBairro(res.data.solicitacao[0].bairro)
+            setReferencia(res.data.solicitacao[0].referencia)
+            setLongitude(res.data.solicitacao[0].longitude)
+            setLatitude(res.data.solicitacao[0].latitude)
+            setProt(res.data.solicitacao[0].id)
+        })
+        
+    }, [])
 
     const schema = yup.object().shape({
 
@@ -36,7 +51,15 @@ const Protocolo = () =>{
     })
 
     const atualizarSolicitacao = (data) => {
-        
+        console.log(data)
+
+        api.put(`/solicitacoes/${params.id}`).then( res => {
+            history.push('/dashboard')
+            toast.success('Protocolo atualizado com sucesso')
+        }).catch( err => {
+            console.log(err)
+            toast.error('Ops, algo de erro. Tente novamente!')
+        })
     }
 
     function limparCamposEndereco() {
@@ -87,8 +110,9 @@ const Protocolo = () =>{
     return(
         <>
             <Header/>
-            {params.id}
+
             <main className='protocolo-main'>
+
                 <h2>Visualize ou edite sua solicitação</h2>
 
                 <div className='protocolo-container'>
@@ -98,11 +122,14 @@ const Protocolo = () =>{
                             <input 
                                 placeholder='Protocolo' 
                                 type='text'
+                                value={prot}
                                 readonly='readonly' 
                                 {...register('protocolo')}
+                                onChange={ e => setProt(e.target.value)}
+                                
                             />
 
-                            <input readonly='readonly' {...register('estadosolicitacao')} />
+                            <input type='hidden' value='aberto' {...register('estadosolicitacao')} />
                             <input type='hidden' value={id} {...register('codusuario')}/>
 
                             
@@ -110,9 +137,11 @@ const Protocolo = () =>{
                                 placeholder='CEP' 
                                 type='text'
                                 autofocus
+                                value={cep}
                                 id='cep'
                                 {...register('cep')}    
                                 onBlur={onBlurCep}
+                                onChange={e => setCep(e.target.value)}
                             />
                             <br/><span>{errors.cep?.message}</span>
 
@@ -120,8 +149,10 @@ const Protocolo = () =>{
                                 placeholder='Logradouro' 
                                 type='text'
                                 readonly='readonly'
+                                value={logradouro}
                                 id='logradouro'
-                                {...register('logradouro')}    
+                                {...register('logradouro')}  
+                                onChange={e => setLogradouro(e.target.value)}  
                             />
                             <br/><span>{errors.logradouro?.message}</span>
 
@@ -130,7 +161,9 @@ const Protocolo = () =>{
                                 type='text'
                                 id='bairro'
                                 readonly='readonly'
-                                {...register('bairro')}    
+                                {...register('bairro')} 
+                                value={bairro}
+                                onChange={e => setBairro(e.target.value)}   
                             />
                             <br/><span>{errors.bairro?.message}</span>
         
@@ -138,6 +171,8 @@ const Protocolo = () =>{
                                 placeholder='Ponto de Referência'
                                 type='text'
                                 {...register('referencia')}
+                                value={referencia}
+                                onChange={ e => setReferencia(e.target.value)}
                             />
                             <br/><span>{errors.referencia?.message}</span>
 
@@ -148,6 +183,8 @@ const Protocolo = () =>{
                                 type='text'
                                 value={0}
                                 {...register('longitude')}
+                                value={longitude}
+                                onChange={ e => setLongitude(e.target.value)}
                             />
                             <br/><span>{errors.longitude?.message}</span>
 
@@ -156,6 +193,8 @@ const Protocolo = () =>{
                                 type='text'
                                 value={0}
                                 {...register('latitude')}
+                                value={latitude}
+                                onChange={ e => setLatitude(e.target.value)}
                             />
                             <br/><span>{errors.latitude?.message}</span>
 

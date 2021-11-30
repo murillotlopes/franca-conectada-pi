@@ -50,10 +50,10 @@ const Solicitar = () => {
 
     const solicitarSubmit = (data) =>{
 
-        //console.log(data)
+        console.log(data)
         api.post(`/solicitacoes/${data}`).then(res => {
             //console.log(res)
-            history.push(`/dashboard`)
+            history.push('/dashboard')
             toast.success('Solicitação aberta com sucesso!')
         }).catch(err => {
             console.log(err)

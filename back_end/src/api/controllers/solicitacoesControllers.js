@@ -26,7 +26,7 @@ module.exports = {
         }
     },
 
-
+    
     async create(req,res) {
         const {codusuario,dataregistro,databaixa,baixamotivo,estadosolicitacao,observacoes,cep,logradouro,referencia,bairro,latitude,longitude} = req.body;
         const solicitacao = await Solicitacoes.create({codusuario,dataregistro,databaixa,baixamotivo,estadosolicitacao,observacoes,cep,logradouro,referencia,bairro,latitude,longitude});

@@ -2,8 +2,18 @@ import Header from '../../components/Header'
 import Button from '../../components/Button'
 import Footer from '../../components/Footer'
 import './ajuda.css'
+import { toast } from 'react-toastify'
+import { useHistory } from 'react-router'
 
 const Ajuda = () => {
+
+    const history = useHistory()
+
+    const help = () => {
+        toast.success("Muito obrigado pela sua contribuição.")
+        history.push('/')
+    }
+
     return (
         <>
             <Header />
@@ -15,7 +25,7 @@ const Ajuda = () => {
                             Informe a nossa equipe por aqui!</h3>
                         <div>
                             <input type="text" name="ajuda" placeholder="Informe seu problema" />
-                            <Button onClick={() => {alert("Muito obrigado pela sua contribuição.")}}>Enviar</Button>
+                            <Button onClick={help}>Enviar</Button>
                         </div>
                     </form>
                 </div >

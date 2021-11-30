@@ -4,10 +4,23 @@ import Button from "../../components/Button"
 
 
 import './redefinir.css'
+import { toast } from "react-toastify"
+import { useHistory } from "react-router"
 
 // redefinição de senha
 
+
+
+
 const Redefinir = () => {
+
+    const history = useHistory()
+
+    const redef = () => {
+        toast.success("Instruções para redefinição de senha foram encaminhadas ao seu e-mail cadastrado no sistema.")
+        history.push('/')
+    
+    }
 
     return(
         <>
@@ -19,7 +32,7 @@ const Redefinir = () => {
                 <p>Redefina-a aqui: </p>
                 <form className='redefinir-form'>
                     <input type="text" name="cpf" placeholder="Informe seu CPF" />
-                    <Button onClick={() => {alert("Instruções para redefinição de senha foram encaminhadas ao seu e-mail cadastrado no sistema.")}}>Enviar</Button>
+                    <Button onClick={redef}>Enviar</Button>
                 </form>
 
             </div>
