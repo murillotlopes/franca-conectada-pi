@@ -14,19 +14,19 @@ const Cadastrar = () => {
     const history = useHistory()
 
     const formSchema = yup.object().shape({
-        name: yup.string().required('Campo obrigatório'),
-        email: yup.string().required('Campo obrigatório').email('E-mail inválido'),
-        celular: yup.string().required('Campo obrigatório'),
-        nascimento: yup.string().required('Campo obrigatório'),
-        cep: yup.string().required('Campo obrigatório'),
+        name: yup.string().required('* Campo obrigatório'),
+        email: yup.string().required('* Campo obrigatório').email('E-mail inválido'),
+        celular: yup.string().required('* Campo obrigatório'),
+        nascimento: yup.string().required('* Campo obrigatório'),
+        cep: yup.string().required('* Campo obrigatório'),
         logradouro: yup.string(),
         complemento: yup.string(),
-        numero: yup.number().required('Campo obrigatório'),
+        numero: yup.string().required('* Campo obrigatório'),
         //bairro: yup.string().required('Campo obrigatório'),
         //cidade: yup.string().required('Campo obrigatório'),
         //uf: yup.string().required('Campo obrigatório'),
-        password: yup.string().required('Campo obrigatório'),
-        passwordConfirme: yup.string().required('Campo obrigatório')
+        password: yup.string().required('* Campo obrigatório'),
+        passwordConfirme: yup.string().required('* Campo obrigatório')
     })
 
     const {register, handleSubmit, formState: {errors}} = useForm({

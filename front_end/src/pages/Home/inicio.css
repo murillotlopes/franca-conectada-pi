@@ -16,7 +16,7 @@ p {
 
 .card-1 {  
     margin-left: 1%;
-    padding: 30px 30px 30px 30px;
+    padding: 10px 30px 30px 30px;
     width: 90%;
     border-right: solid black ;
 }
@@ -26,7 +26,7 @@ p {
 }
 
 .card-2 {
-    padding: 30px 30px 30px 30px;
+    padding: 10px 30px 30px 30px;
     width: 300px
 }
 
@@ -39,19 +39,43 @@ footer {
     background-color: var(--var-azul-escuro);
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-around;
     padding: 16px 0 10px 0; 
+    text-decoration: none;
 }
 
 footer #imgfooter {
     width: 24px;
     height: 24px;
+    flex: content;
+    padding-left: 20px;
 }
 
 footer #rodape {
     font-size: 14px;
     line-height: 20px;
     color: #fff;
+    padding-left: 20px;
+}
+
+footer #rodape1 {
+    font-size: 14px;
+    line-height: 20px;
+    color: #fff;
+}
+
+footer #rodape2 {
+    font-size: 14px;
+    line-height: 20px;
+    color: #fff;
+    padding-right: 150px;
+}
+
+footer #email {
+    font-size: 14px;
+    line-height: 20px;
+    color: #fff;
+    padding-left: 20px;
+    padding-right: 150px;
 }
 
 footer ul li {

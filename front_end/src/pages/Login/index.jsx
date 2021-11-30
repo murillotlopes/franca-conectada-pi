@@ -15,8 +15,8 @@ const Login = () => {
     const history = useHistory()
 
     const formSchema = yup.object().shape({
-        email: yup.string().required('Campo obrigatório').email('E-mail inválido'),
-        password: yup.string().required('Campo obrigatório')
+        email: yup.string().required('* Campo obrigatório').email('E-mail inválido'),
+        password: yup.string().required('* Campo obrigatório')
     })
 
     const {register, handleSubmit, formState: {errors}} = useForm({

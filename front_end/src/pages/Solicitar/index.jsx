@@ -15,9 +15,9 @@ const Solicitar = () => {
 
     const formSchema = yup.object().shape({
         
-        cep: yup.string().required('Campo obrigatório'),
+        cep: yup.string().required('* Campo obrigatório'),
         logradouro: yup.string().required('Campo obrigatório'),
-        numero: yup.string().required('Campo obrigatório'),
+        numero: yup.string().required('* Campo obrigatório'),
         complemento: yup.string(),
         bairro: yup.string().required('Campo obrigatório'),
         cidade: yup.string().required('Campo obrigatório'),

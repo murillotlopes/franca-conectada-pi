@@ -1,4 +1,3 @@
-
 import Header from "../../components/Header"
 import ProtoTable from "../../components/ProtoTable"
 import Footer from "../../components/Footer"

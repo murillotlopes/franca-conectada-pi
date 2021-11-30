@@ -44,14 +44,17 @@
 .cadastrar-form input{
     margin: 5px 5px;
     padding: 5px 7px;
-
     background-color: var(--var-branco);
-
     border-radius: var(--var-border-radius);
     border: none;
-
     width: 250px;
     height: 35px;
+    font-size: 13px;
+}
+
+.cadastrar-form span {
+    color: red;
+    font-size: 10px;
 }
 
 .button{
