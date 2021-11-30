@@ -13,7 +13,7 @@ module.exports = {
         const usuario = await Usuarios.create({nome,tipousuario,senha,cpf,email,cep,logradouro,numero,bairro,cidade,uf,complemento,permissao_alterar,permissao_excluir,permissao_baixa});
         return res.status(200).send({
             status: 1,
-            message: "Usuario Cadastrado com sucesso!",
+            message: "Usuario cadastrado com sucesso!",
             usuario
         })
     },
@@ -41,7 +41,7 @@ module.exports = {
             {where: {id: codigo}});
         return res.status(200).send({
             status: 1,
-            message: "Usuario Atualizado com sucesso",
+            message: "Usuario atualizado com sucesso",
         })
     },
 
@@ -55,7 +55,7 @@ module.exports = {
         });
         return res.status(200).send({
             status: 1,
-            message: "Usuario Excluído com sucesso"
+            message: "Usuario excluído com sucesso"
         })
     }
 
