@@ -14,7 +14,7 @@ module.exports = {
 };
 */
 
-/*
+
 module.exports = {
     host: '172.16.90.10',
     dialect: 'mysql',
@@ -26,4 +26,3 @@ module.exports = {
         underscored: true
     }
 }
-*/

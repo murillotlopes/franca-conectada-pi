@@ -4,8 +4,9 @@ import ProtoTable from "../../components/ProtoTable"
 import Footer from "../../components/Footer"
 
 import { solicitacoes } from "../../data/tempTest"
+import api from "../../services/api"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import {useHistory} from 'react-router-dom'
 
 import './consulta.css'
@@ -18,6 +19,11 @@ const Consulta = () => {
     const edit = (data) => {
         history.push(`/dashboard/consulta/edit/${data}`)
     }
+
+    useEffect(()=> {
+        api.get('solicitacoes').then(resp => console.log(resp.data)).catch(err => console.log('falhou', err))
+    },[])
+        
         
     const excluir = (data) => {
         setProtoList(protoList.filter(e => e.id !== data))
