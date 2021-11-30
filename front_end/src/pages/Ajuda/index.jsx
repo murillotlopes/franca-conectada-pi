@@ -15,7 +15,7 @@ const Ajuda = () => {
                             Informe a nossa equipe por aqui!</h3>
                         <div>
                             <input type="text" name="ajuda" placeholder="Informe seu problema" />
-                            <Button>Enviar</Button>
+                            <Button onClick={() => {alert("Muito obrigado pela sua contribuição.")}}>Enviar</Button>
                         </div>
                     </form>
                 </div >
