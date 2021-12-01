@@ -203,7 +203,7 @@ const Protocolo = () =>{
                                 accept='image/*'
                             />
 
-                            <Button type='submit'>Enviar Solicitação</Button>
+                            <Button type='submit'>Salvar edição</Button>
         
                     </form>
 
