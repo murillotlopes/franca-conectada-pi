@@ -18,7 +18,7 @@ const Dashboard = () => {
 
             <main className='dashboard'>
 
-                <p>Bem vindo ao Franca Conectada</p>
+                <p id='titulo' >Bem vindo ao Franca Conectada</p>
                 <p>Selecione um dos serviços disponíveis abaixo e colabore com sua cidade</p>
                 <br/>
 
