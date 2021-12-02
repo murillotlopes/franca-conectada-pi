@@ -11,6 +11,11 @@ const Dashboard = () => {
 
     const history = useHistory()
 
+    const {id} = JSON.parse(localStorage.getItem('@fraConect:usuario')) || {}
+
+    if(!!id === false){
+        history.push('/login')
+    }
 
     return(
         <>

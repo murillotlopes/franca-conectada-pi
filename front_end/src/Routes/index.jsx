@@ -1,5 +1,5 @@
 
-import {Switch, Route, Redirect} from 'react-router-dom'
+import {Switch, Route} from 'react-router-dom'
 import Dashboard from '../pages/Dashboard'
 
 import Home from '../pages/Home'
